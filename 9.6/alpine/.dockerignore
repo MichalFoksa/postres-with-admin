@@ -1,0 +1,5 @@
+.gitignore
+.dockertag
+build.sh
+tag.sh
+build-image-id.txt
