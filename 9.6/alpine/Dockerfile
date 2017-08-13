@@ -23,12 +23,15 @@ RUN wget https://codeload.github.com/phppgadmin/phppgadmin/tar.gz/REL_5-1-0 && \
     rm REL_5-1-0 && \
     mkdir mkdir /usr/share/webapps && \
     mv phppgadmin-REL_5-1-0 /usr/share/webapps/phppgadmin && \
-    # Copy sample config file
-    cp /usr/share/webapps/phppgadmin/conf/config.inc.php-dist /usr/share/webapps/phppgadmin/conf/config.inc.php && \
     # Change the folder permissions
     chmod -R 777 /usr/share/webapps && \
     # Create a symlink to the phpPgAdmin folder
     ln -s /usr/share/webapps/phppgadmin/ /var/www/localhost/htdocs/phppgadmin
+
+# Copy config file with disabled extra login security.
+# Extra login security denies logins via phpPgAdmin with no password or certain
+# usernames (pgsql, postgres, root, administrator).
+COPY config.inc.php /usr/share/webapps/phppgadmin/conf/config.inc.php
 
 # Redirect web root to phppgadmin
 COPY index.html /var/www/localhost/htdocs/index.html
@@ -40,7 +43,5 @@ RUN printf "#!/bin/bash\n echo 'Starting lighttpd.'\n /usr/sbin/lighttpd -f /etc
     chmod +x new-docker-entrypoint.sh && \
     mv new-docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
-# Expose PostreSQL
-EXPOSE 5422
 # Expose web server
 EXPOSE 80
