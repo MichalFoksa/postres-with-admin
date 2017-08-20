@@ -1,10 +1,9 @@
 # With PostgreSQL 9.6.4
 FROM postgres:9.6.4-alpine
 RUN apk --no-cache add \
-        lighttpd php5-common php5-iconv php5-json php5-gd php5-curl php5-xml \
-        php5-pgsql php5-imap php5-cgi fcgi php5-pdo php5-pdo_pgsql php5-soap \
-        php5-xmlrpc php5-posix php5-mcrypt php5-gettext php5-ldap php5-ctype \
-        php5-dom && \
+        lighttpd php5-common php5-iconv php5-json php5-gd php5-curl \
+        php5-pgsql php5-cgi fcgi php5-pdo php5-pdo_pgsql \
+        php5-posix php5-mcrypt php5-gettext php5-ctype php5-dom && \
     apk --no-cache add ca-certificates && \
     update-ca-certificates && \
     apk --no-cache add openssl
